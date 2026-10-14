@@ -1,0 +1,35 @@
+<% content_for :title, @article.title %>
+
+<article class="article">
+  <h1><%= @article.title %></h1>
+
+  <dl class="meta">
+    <dt>Category</dt>
+    <dd><%= category_link(@article.category) %></dd>
+
+    <dt>Status</dt>
+    <dd><%= status_badge(@article) %></dd>
+
+    <% if @article.published? %>
+      <dt>Published</dt>
+      <dd><%= display_time(@article.published_at) %></dd>
+    <% end %>
+
+    <dt>Slug</dt>
+    <dd><code><%= @article.slug %></code></dd>
+
+    <dt>Created</dt>
+    <dd><%= display_time(@article.created_at) %></dd>
+  </dl>
+
+  <div class="article-body">
+    <%= simple_format(@article.body) %>
+  </div>
+</article>
+
+<div class="actions">
+  <%= link_to "Edit", edit_article_path(@article), class: "button button-secondary" %>
+  <%= button_to "Delete", @article, method: :delete, class: "button button-danger",
+        form: { onsubmit: "return confirm('Delete this article?');" } %>
+  <%= link_to "Back to articles", articles_path %>
+</div>

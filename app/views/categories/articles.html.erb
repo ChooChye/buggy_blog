@@ -1,0 +1,30 @@
+<% content_for :title, "Articles in #{@category.name}" %>
+
+<div class="page-header">
+  <h1>Articles in <%= @category.name %></h1>
+</div>
+
+<% if @articles.any? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Status</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @articles.each do |article| %>
+        <tr>
+          <td><%= link_to article.title, article %></td>
+          <td><%= status_badge(article) %></td>
+          <td><%= display_date(article.created_at) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p class="empty">There are no articles in this category yet.</p>
+<% end %>
+
+<p><%= link_to "Back to categories", categories_path %></p>
